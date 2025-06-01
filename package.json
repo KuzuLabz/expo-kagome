@@ -1,0 +1,46 @@
+{
+  "name": "expo-kagome",
+  "version": "0.1.0",
+  "description": "A Japanese morphological analyzer",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "expo-module build",
+    "clean": "expo-module clean",
+    "lint": "expo-module lint",
+    "test": "expo-module test",
+    "prepare": "expo-module prepare",
+    "prepublishOnly": "expo-module prepublishOnly",
+    "expo-module": "expo-module",
+    "open:ios": "xed example/ios",
+    "open:android": "open -a \"Android Studio\" example/android",
+    "go-android": "cd golang/mobile && gomobile bind -target=android -o kagome.aar && mv kagome.aar ../../android/libs",
+    "go-ios": "cd golang/mobile && gomobile bind -target ios -o Kagome.xcframework && mv Kagome.xcframework ../../ios/Frameworks",
+    "go-web": "cd golang/web && GOOS=js GOARCH=wasm go build -o kagome.wasm main.go && mv kagome.wasm ../../src/web && cp \"$(go env GOROOT)/lib/wasm/wasm_exec.js\" ../../src/web",
+    "go-build": "npm run go-android && npm run go-ios && npm run go-web"
+  },
+  "keywords": [
+    "react-native",
+    "expo",
+    "expo-kagome",
+    "ExpoKagome",
+    "japanese"
+  ],
+  "repository": "https://github.com/KuzuLabz/expo-kagome",
+  "bugs": {
+    "url": "https://github.com/KuzuLabz/expo-kagome/issues"
+  },
+  "author": "KuzuLabz <kuzulabz@gmail.com> (https://github.com/KuzuLabz)",
+  "license": "MIT",
+  "homepage": "https://github.com/KuzuLabz/expo-kagome#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react": "~19.1.3",
+    "expo-module-scripts": "^4.1.7"
+  },
+  "peerDependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-native": "*"
+  }
+}
