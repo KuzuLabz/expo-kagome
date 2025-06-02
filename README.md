@@ -34,7 +34,7 @@ For bare React Native projects, you must ensure that you have [installed and con
 Run `npx pod-install` after installing the npm package.
 
 # Usage
-[Full example](https://github.com/KuzuLabz/expo-kagome/example/App.tsx)
+[Full example](https://github.com/KuzuLabz/expo-kagome/blob/main/example/App.tsx)
 ```ts
 import { getTokens } from 'expo-kagome';
 
@@ -61,26 +61,26 @@ await initializeKagomeAsync();
 
 
 # API
-### [Functions](https://github.com/KuzuLabz/expo-kagome/src/ExpoKagome.types.ts)
+### [Functions](https://github.com/KuzuLabz/expo-kagome/blob/main/src/ExpoKagome.types.ts)
 
 #### `getTokens(text: string): Promise<Token[]>`
 Basic tokenization
 - **text**: The text to be analyzed.
-- **returns**: [Token[]]()
+- **returns**: [Token[]](#token)
 
 #### `getAnalysis(text: string, mode: AnalyzeMode = 'normal'): Promise<Token[]>`
 Same as `getTokens`, but with an additional `mode` parameter.  
 - **text**: The text to be analyzed.
-- **mode**: [AnalyzeMode]()
-- **returns**: [Token[]]()
+- **mode**: [AnalyzeMode](#analyzemode)
+- **returns**: [Token[]](#token)
 
 #### `getWakati(text: string): Promise<string[]>`
 Segmentation of text into words
 - **text**: The text to be segmented.
 - **returns**: string[]
 
-### [Types](https://github.com/KuzuLabz/expo-kagome/src/ExpoKagome.types.ts)
-#### [Token](https://github.com/KuzuLabz/expo-kagome/src/ExpoKagome.types.ts)
+### [Types](https://github.com/KuzuLabz/expo-kagome/blob/main/src/ExpoKagome.types.ts)
+#### [Token](https://github.com/KuzuLabz/expo-kagome/blob/main/src/ExpoKagome.types.ts)
 An object with the following properties:
   - **word_id**: The ID of the token.
   - **word_position**: The position of the token in the text.
