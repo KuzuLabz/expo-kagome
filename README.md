@@ -101,4 +101,4 @@ For more information about these modes, refer to the [Kagome documentation](http
 
 # Contributing
 
-Contributions are very welcome! Please refer to guidelines described in the [contributing guide]( https://github.com/kuzulabz/expo-kagome/contributing.md).
+Contributions are very welcome! Please refer to guidelines described in the [contributing guide](https://github.com/KuzuLabz/expo-kagome/blob/main/CONTRIBUTING.md).
