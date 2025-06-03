@@ -63,3 +63,6 @@ yarn-error.log
 
 # Go
 golang/mobile/*.jar
+
+src/web/kagome.wasm
+golang/mobile/kagome-sources.jar
