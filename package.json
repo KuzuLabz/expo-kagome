@@ -24,9 +24,13 @@
     "expo",
     "expo-kagome",
     "ExpoKagome",
-    "japanese"
+    "japanese",
+    "Japanese"
   ],
-  "repository": "https://github.com/KuzuLabz/expo-kagome",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KuzuLabz/expo-kagome.git"
+  },
   "bugs": {
     "url": "https://github.com/KuzuLabz/expo-kagome/issues"
   },
