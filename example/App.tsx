@@ -1,15 +1,33 @@
 import { useEvent } from 'expo';
-import { getTokens, getAnalysis, getWakati, AnalyzeMode, Token, initializeKagomeAsync } from 'expo-kagome';
+import { getTokens, getAnalysis, getWakati, getGraph, AnalyzeMode, Token, initializeKagomeAsync } from 'expo-kagome';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Button, Platform, SafeAreaView, ScrollView, StatusBar, Text, TextInput, View, useColorScheme } from 'react-native';
+import { SvgFromXml } from 'react-native-svg';
+
+const fetchGraphviz = async (graph: string) => {
+  const body = {
+    graph: graph,
+    layout: 'dot',
+    format: 'svg',
+  };
+  const result = await fetch('https://quickchart.io/graphviz', {
+    method: 'post',
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
+  });
+  const svg = await result.text();
+  return svg;
+};
 
 export default function App() {
-  const [text, setText] = useState('');
+  const [text, setText] = useState('冬が近づくにつれて日が短くなる。');
   const [selectedMode, setSelectedMode] = useState<AnalyzeMode>('normal');
   const [tokens, setTokens] = useState<Token[]>([]);
   const [wakati, setWakati] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isWakatiLoading, setIsWakatiLoading] = useState(false);
+  const [isGraphLoading, setIsGraphLoading] = useState(false);
+  const [graphSvg, setGraphSvg] = useState<string | null>();
 
   const [isWasmLoaded, setIsWasmLoaded] = useState(Platform.OS === 'web' ? false : true);
 
@@ -32,6 +50,7 @@ export default function App() {
 
   const onAnalyze = async () => {
     if (text.length > 0) {
+      setTokens([]);
       setIsLoading(true);
       try {
         const result = await getAnalysis(text);
@@ -48,12 +67,30 @@ export default function App() {
 
   const onWakati = async () => {
     if (text.length > 0) {
+      setWakati([]);
       setIsWakatiLoading(true);
       const result = await getWakati(text);
       if (result) {
         setWakati(result);
       }
       setIsWakatiLoading(false);
+    }
+  };
+
+  const onGraph = async () => {
+    if (text.length > 0) {
+      setGraphSvg(null);
+      setIsGraphLoading(true);
+      try {
+        const dot = await getGraph(text);
+        if (dot) {
+          const svg = await fetchGraphviz(dot)
+          svg && setGraphSvg(svg);
+        }
+      } catch (e) {
+        console.warn(e);
+      }
+      setIsGraphLoading(false);
     }
   };
 
@@ -66,8 +103,8 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={[styles.container]}>
-      <Text style={styles.header}>Kagome React Native</Text>
-        <Group name='Analyze'>
+        <Text style={styles.header}>Expo Kagome</Text>
+        <Group name='Input'>
           <View style={{width: '100%', alignItems: 'center'}}>
             <TextInput value={text} onChangeText={(txt) => setText(txt)} style={{width: '90%', padding: 12, borderWidth: 1, marginVertical: 20}} multiline />
           </View>
@@ -77,12 +114,16 @@ export default function App() {
             <Button title='Extend' onPress={() => onModeSelect('extend')} disabled={selectedMode === 'extend'} />
           </View>
           <View style={{gap: 8}}>
-            {isWakatiLoading ? <ActivityIndicator size={'small'} /> : <Button title='Wakati' onPress={onWakati} disabled={!isWasmLoaded} />}
-            {isLoading ? <ActivityIndicator size={'small'} /> : <Button title='Tokenize' onPress={onAnalyze} disabled={!isWasmLoaded} />}
+            <Button title='Wakati' onPress={onWakati} disabled={!isWasmLoaded || isWakatiLoading} />
+            <Button title='Lattice Graph' onPress={onGraph} disabled={!isWasmLoaded || isGraphLoading} />
+            <Button title='Tokenize' onPress={onAnalyze} disabled={!isWasmLoaded || isLoading} />
           </View>
         </Group>
-
+        <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+          {['⬇️','⬇️', '⬇️'].map((txt, idx) => <Text selectable={false} key={idx}>{txt}</Text>)}
+        </View>
         <Group name="Wakati" description='Segment Japanese text into words'>
+          {isWakatiLoading && <ActivityIndicator />}
           {wakati.length > 0 && (
             <View style={{width: '100%', alignItems: 'center'}}>
               <Text>{wakati.join(' - ')}</Text>
@@ -90,7 +131,17 @@ export default function App() {
           )}
         </Group>
 
-        <Group name="Analysis" description='Analyzing Japanese text into words and parts of speech'>
+        <Group name="Graph" description='A lattice graph of the tokenization process'>
+          {isGraphLoading && <ActivityIndicator />}
+          {graphSvg && (
+            <View style={{width: '100%', alignItems: 'center'}}>
+              <SvgFromXml xml={graphSvg} width="100%" height={300} />
+            </View>
+          )}
+        </Group>
+
+        <Group name="Analysis" description='Tokenized Japanese text'>
+          {isLoading && <ActivityIndicator />}
           {tokens.length > 0 && (
             <View style={{width: '100%', alignItems: 'center'}}>
               {tokens.map((token, index) => (
@@ -108,31 +159,6 @@ export default function App() {
             </View>
           )}
         </Group>
-        
-        {/* <Group name="Constants">
-          <Text>{ExpoKagome.PI}</Text>
-        </Group>
-        <Group name="Functions">
-          <Text>{ExpoKagome.hello()}</Text>
-        </Group>
-        <Group name="Async functions">
-          <Button
-            title="Set value"
-            onPress={async () => {
-              await ExpoKagome.setValueAsync('Hello from JS!');
-            }}
-          />
-        </Group>
-        <Group name="Events">
-          <Text>{onChangePayload?.value}</Text>
-        </Group>
-        <Group name="Views">
-          <ExpoKagomeView
-            url="https://www.example.com"
-            onLoad={({ nativeEvent: { url } }) => console.log(`Loaded: ${url}`)}
-            style={styles.view}
-          />
-        </Group> */}
       </ScrollView>
       <StatusBar barStyle={themeColor === 'dark' ? 'dark-content' : 'light-content'} />
     </SafeAreaView>
