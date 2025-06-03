@@ -71,13 +71,19 @@ Basic tokenization
 #### `getAnalysis(text: string, mode: AnalyzeMode = 'normal'): Promise<Token[]>`
 Same as `getTokens`, but with an additional `mode` parameter.  
 - **text**: The text to be analyzed.
-- **mode**: [AnalyzeMode](#analyzemode)
+- **mode**: [AnalyzeMode](#analyzemode) (default: normal)
 - **returns**: [Token[]](#token)
 
 #### `getWakati(text: string): Promise<string[]>`
 Segmentation of text into words
 - **text**: The text to be segmented.
 - **returns**: string[]
+
+#### `getGraph(text: string, mode: AnalyzeMode = 'normal'): Promise<string>`
+Generate a graph of the tokenization process in Graphvis dot format.  
+- **text**: The text to be analyzed.
+- **mode**: [AnalyzeMode](#analyzemode) (default: normal)
+- **returns**: A Graphvis in [dot format](https://graphviz.org/doc/info/lang.html) (string)
 
 ### [Types](https://github.com/KuzuLabz/expo-kagome/blob/main/src/ExpoKagome.types.ts)
 #### [Token](https://github.com/KuzuLabz/expo-kagome/blob/main/src/ExpoKagome.types.ts)
