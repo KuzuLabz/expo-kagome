@@ -2,7 +2,6 @@ package kagome
 
 import (
 	"encoding/json"
-	"strings"
 
 	"github.com/ikawaha/kagome-dict/ipa"
 	"github.com/ikawaha/kagome/v2/tokenizer"
@@ -52,7 +51,7 @@ func Tokenize(text string) string {
 			"word_position": v.Start,
 			"features":      v.Features(),
 			"surface_form":  v.Surface,
-			"pos":           strings.Join(v.POS(), ","),
+			"pos":           v.POS(),
 			"base_form":     igOK(v.BaseForm()),
 			"reading":       igOK(v.Reading()),
 			"pronunciation": igOK(v.Pronunciation()),
@@ -80,7 +79,7 @@ func Analyze(text string, mode int) string {
 			"word_position": v.Start,
 			"features":      v.Features(),
 			"surface_form":  v.Surface,
-			"pos":           strings.Join(v.POS(), ","),
+			"pos":           v.POS(),
 			"base_form":     igOK(v.BaseForm()),
 			"reading":       igOK(v.Reading()),
 			"pronunciation": igOK(v.Pronunciation()),
@@ -89,10 +88,3 @@ func Analyze(text string, mode int) string {
 	result := getJsonString(ret)
 	return result
 }
-
-// func main() {
-// 	text := "私はビールが好きですか？"
-
-// 	Tokenize(text)
-
-// }

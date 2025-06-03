@@ -4,7 +4,7 @@ export type Token = {
   "word_position": number,
   "features": string[],
   "surface_form": string,
-  "pos": string,
+  "pos": string[],
   "base_form": string,
   "reading": string,
   "pronunciation": string,

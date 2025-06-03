@@ -27,7 +27,8 @@ export const getTokens = async (text: string) => {
         const result = window.tokenize(text);
         const tokens = result.map((token) => ({
             ...token,
-            features: token.features.split(","),
+            features: token.features.split(','),
+            pos: token.pos.split(','),
         })) as Token[];
         return tokens;
     }
@@ -45,7 +46,8 @@ export const getAnalysis = async (text: string, mode: AnalyzeMode = 'normal') =>
         const result = window.analyze(text, Modes[mode]);
         const tokens = result.map((token) => ({
             ...token,
-            features: token.features.split(","),
+            features: token.features.split(','),
+            pos: token.pos.split(','),
         })) as Token[];
         return tokens;
     }
@@ -59,7 +61,7 @@ export const getAnalysis = async (text: string, mode: AnalyzeMode = 'normal') =>
  */
 export const getWakati = async (text: string) => {
     if (text && text.length > 0) {
-        return window.wakati(text ?? "")?.words?.split(",");
+        return window.wakati(text ?? '')?.words?.split(',');
     }
     return null;
 };

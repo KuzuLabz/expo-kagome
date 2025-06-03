@@ -82,14 +82,15 @@ Segmentation of text into words
 ### [Types](https://github.com/KuzuLabz/expo-kagome/blob/main/src/ExpoKagome.types.ts)
 #### [Token](https://github.com/KuzuLabz/expo-kagome/blob/main/src/ExpoKagome.types.ts)
 An object with the following properties:
-  - **word_id**: The ID of the token.
-  - **word_position**: The position of the token in the text.
-  - **base_form**: The base form of the token.
-  - **surface_form**: The surface form of the token.
-  - **reading**: The reading of the token.
-  - **features**: An array of features of the token. Each feature is a string.
-  - **pos**: The part of speech of the token.
-  - **pronunciation**: The pronunciation of the token.
+  - **word_id**\<number\>: The ID of the token.
+  - **word_position**\<number\>: The position of the token in the text.
+  - **word_type**\<string\>: The word class.
+  - **base_form**\<string\>: The base form of the token.
+  - **surface_form**\<string\>: The surface form of the token.
+  - **reading**\<string\>: The reading of the token.
+  - **features**\<string[]\>: An array of features of the token. Each feature is a string.
+  - **pos**\<string[]\>: The part of speech of the token.
+  - **pronunciation**\<string\>: The pronunciation of the token.
 
 #### [AnalyzeMode]()
 The mode of analysis. Can be one of the following:

@@ -100,7 +100,7 @@ export default function App() {
                     <Text>{`Base form: ${token.base_form}`}</Text>
                     <Text>{`Reading: ${token.reading}`}</Text>
                     <Text>{`Pronunciation: ${token.pronunciation}`}</Text>
-                    <Text>{`Part of Speech: ${token.pos}`}</Text>
+                    <Text>{`Part of Speech: ${token.pos.join(', ')}`}</Text>
                     <Text>{`Features: ${token.features.join(', ')}`}</Text>
                   </View>
                 </View>
