@@ -6,6 +6,7 @@ declare global {
         tokenize: (text: string) => (Omit<Token, 'features' | 'pos'> & { features: string; pos: string })[];
         analyze: (text: string, mode: number) => (Omit<Token, 'features' | 'pos'> & { features: string; pos: string })[];
         wakati: (text: string) => { words: string };
+        graph: (text: string, mode: number) => { dot: string };
     }
 }
 

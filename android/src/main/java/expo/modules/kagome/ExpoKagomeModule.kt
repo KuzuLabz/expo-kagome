@@ -64,7 +64,7 @@ class ExpoKagomeModule : Module() {
         try {
           service.cancel(ModuleDestroyedException())
         } catch (e: IllegalStateException) {
-          Log.e("[ImageColors]", "The scope does not have a job in it")
+          Log.e("[ExpoKagome - Tokenize]", "The scope does not have a job in it")
         }
       }
     }
@@ -84,7 +84,7 @@ class ExpoKagomeModule : Module() {
         try {
           service.cancel(ModuleDestroyedException())
         } catch (e: IllegalStateException) {
-          Log.e("[ImageColors]", "The scope does not have a job in it")
+          Log.e("[ExpoKagome - Analyze]", "The scope does not have a job in it")
         }
       }
     }
@@ -104,11 +104,30 @@ class ExpoKagomeModule : Module() {
         try {
           service.cancel(ModuleDestroyedException())
         } catch (e: IllegalStateException) {
-          Log.e("[ImageColors]", "The scope does not have a job in it")
+          Log.e("[ExpoKagome - Wakati]", "The scope does not have a job in it")
         }
       }
     }
     
+    AsyncFunction("graph") { text: String, mode: Long, promise: Promise ->
+      service.launch {
+        try {
+          val result: String = Kagome.graph(text, mode);
+          promise.resolve(result)
+        } catch (err: Exception) {
+          handleError(promise, Exception("TEST"))
+        } catch (err: Exception) {
+          handleError(promise, Exception("TEST 2"))
+        }
+      }
+      OnDestroy {
+        try {
+          service.cancel(ModuleDestroyedException())
+        } catch (e: IllegalStateException) {
+          Log.e("[ExpoKagome - Graph]", "The scope does not have a job in it")
+        }
+      }
+    }
 
     // Enables the module to be used as a native view. Definition components that are accepted as part of
     // the view definition: Prop, Events.

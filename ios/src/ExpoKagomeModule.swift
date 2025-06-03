@@ -33,14 +33,17 @@ public class ExpoKagomeModule: Module {
     }
 
     AsyncFunction("analyze") { (text: String, mode: Int, promise: Promise) in
-      // Send an event to JavaScript.
       var result = KagomeAnalyze(text, mode)
       promise.resolve(result)
     }
 
     AsyncFunction("wakati") { (text: String, promise: Promise) in
-      // Send an event to JavaScript.
       var result = KagomeWakati(text)
+      promise.resolve(result)
+    }
+
+    AsyncFunction("graph") { (text: String, mode: Int, promise: Promise) in
+      var result = KagomeGraph(text, mode)
       promise.resolve(result)
     }
 

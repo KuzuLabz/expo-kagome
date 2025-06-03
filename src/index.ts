@@ -50,4 +50,18 @@ export const getWakati = async (text: string) => {
     return null;
 };
 
+/**
+ * Generate a graph of the tokenization process in Graphvis dot format.
+ * @param text - The text to be analyzed.
+ * @param mode - The analysis mode. Can be 'normal', 'search', or 'extend'.
+ * @returns A Graphvis in  dot format
+ */
+export const getGraph = async (text: string, mode: AnalyzeMode = 'normal') => {
+    if (text && text.length > 0) {
+        const dot = await ExpoKagomeModule.graph(text, Modes[mode]);
+        return dot;
+    }
+    return null;
+}
+
 export * from './ExpoKagome.types';

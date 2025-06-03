@@ -21,6 +21,7 @@ export const initializeKagome = () => {
 /**
  * Basic tokenization
  * @param text - The text to be tokenized.
+ * @returns Tokens
  */
 export const getTokens = async (text: string) => {
     if (text && text.length > 0 && !!window.Go) {
@@ -39,7 +40,7 @@ export const getTokens = async (text: string) => {
  * Tokenization with mode selection
  * @param text - The text to be analyzed.
  * @param mode - The analysis mode. Can be 'normal', 'search', or 'extend'.
- * @returns 
+ * @returns Tokens
  */
 export const getAnalysis = async (text: string, mode: AnalyzeMode = 'normal') => {
     if (text && text.length > 0) {
@@ -65,3 +66,16 @@ export const getWakati = async (text: string) => {
     }
     return null;
 };
+
+/**
+ * Generate a graph of the tokenization process in Graphvis dot format.
+ * @param text - The text to be analyzed.
+ * @param mode - The analysis mode. Can be 'normal', 'search', or 'extend'.
+ * @returns A Graphvis in  dot format
+ */
+export const getGraph = async (text: string, mode: AnalyzeMode = 'normal') => {
+    if (text && text.length > 0) {
+        return window.graph(text, Modes[mode])?.dot;
+    }
+    return null;
+}

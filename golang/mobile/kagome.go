@@ -1,6 +1,7 @@
 package kagome
 
 import (
+	"bytes"
 	"encoding/json"
 
 	"github.com/ikawaha/kagome-dict/ipa"
@@ -87,4 +88,18 @@ func Analyze(text string, mode int) string {
 	}
 	result := getJsonString(ret)
 	return result
+}
+
+func Graph(text string, mode int) string {
+	if len(text) == 0 {
+		return ""
+	}
+	t, err := tokenizer.New(ipa.Dict(), tokenizer.OmitBosEos())
+	if err != nil {
+		return ""
+	}
+
+	var buf bytes.Buffer
+	t.AnalyzeGraph(&buf, text, tokenizer.TokenizeMode(mode))
+	return buf.String()
 }

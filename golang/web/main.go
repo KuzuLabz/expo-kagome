@@ -4,6 +4,7 @@
 package main
 
 import (
+	"bytes"
 	"strings"
 	"syscall/js"
 
@@ -89,11 +90,32 @@ func analyze(_ js.Value, args []js.Value) interface{} {
 	return ret
 }
 
+func graph(_ js.Value, args []js.Value) interface{} {
+	if len(args[0].String()) == 0 {
+		return ""
+	}
+	t, err := tokenizer.New(ipa.Dict(), tokenizer.OmitBosEos())
+	if err != nil {
+		return ""
+	}
+
+	var buf bytes.Buffer
+	var dot interface{}
+	t.AnalyzeGraph(&buf, args[0].String(), tokenizer.TokenizeMode(args[1].Int()))
+	// return buf.String()
+	dot = map[string]interface{}{
+		"dot": buf.String(),
+	}
+
+	return dot
+}
+
 func registerCallbacks() {
 	_ = ipa.Dict()
 	js.Global().Set("tokenize", js.FuncOf(tokenize))
 	js.Global().Set("analyze", js.FuncOf(analyze))
 	js.Global().Set("wakati", js.FuncOf(wakati))
+	js.Global().Set("graph", js.FuncOf(graph))
 }
 
 func main() {
