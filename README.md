@@ -15,15 +15,15 @@ wasm: 15MB
 # Install
 ### Bun
 ```
-bun add expo-kagome
+bun add @kuzulabz/expo-kagome
 ```
 ### Yarn
 ```
-yarn add expo-kagome
+yarn add @kuzulabz/expo-kagome
 ```
 ### Npm
 ```
-npm install expo-kagome
+npm install @kuzulabz/expo-kagome
 ```
 
 ## Installation in bare React Native projects
