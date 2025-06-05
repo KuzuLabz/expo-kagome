@@ -36,7 +36,7 @@ Run `npx pod-install` after installing the npm package.
 # Usage
 [Full example](https://github.com/KuzuLabz/expo-kagome/blob/main/example/App.tsx)
 ```ts
-import { getTokens } from 'expo-kagome';
+import { getTokens } from '@kuzulabz/expo-kagome';
 
 const text = '私は日本語を勉強しています。';
 const tokens = await getTokens(text);
@@ -45,7 +45,7 @@ const tokens = await getTokens(text);
 ### Web
 The WASM file needs to be loaded before using.
 ```typescript
-import { initializeKagome, initializeKagomeAsync } from 'expo-kagome';
+import { initializeKagome, initializeKagomeAsync } from '@kuzulabz/expo-kagome';
 
 // for example, in App.tsx
 initializeKagome();
