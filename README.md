@@ -10,6 +10,7 @@ wasm: 15MB
 ```
 
 # To-do
+- [ ] support user dict
 - [ ] lower wasm file size
 
 # Install
@@ -43,7 +44,11 @@ const tokens = await getTokens(text);
 ```
 
 ### Web
-The WASM file needs to be loaded before using.
+Web requires these extra steps:
+#### Metro Config
+Add ```config.resolver.assetExts.push('wasm');``` to your metro config file.
+
+#### Load WASM
 ```typescript
 import { initializeKagome, initializeKagomeAsync } from '@kuzulabz/expo-kagome';
 
@@ -53,12 +58,6 @@ initializeKagome();
 // or asyncronously
 await initializeKagomeAsync();
 ```
-
-<!-- # API documentation
-
-- [Documentation for the latest stable release](https://docs.expo.dev/versions/latest/sdk/kagome/)
-- [Documentation for the main branch](https://docs.expo.dev/versions/unversioned/sdk/kagome/) -->
-
 
 # API
 ### [Functions](https://github.com/KuzuLabz/expo-kagome/blob/main/src/ExpoKagome.types.ts)
