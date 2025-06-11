@@ -1,6 +1,6 @@
 # expo-kagome
 
-A Japanese morphological analyzer using the IPA dictionary.
+A react native port of [Kagome](https://github.com/ikawaha/kagome) using the IPA dictionary.
 
 ### Sizes
 ```
