@@ -1,4 +1,7 @@
 # expo-kagome
+<img alt="Android" src="https://img.shields.io/badge/Android-grey?style=flat-square&logo=android" />
+<img alt="iOS" src="https://img.shields.io/badge/iOS-grey?style=flat-square&logo=apple" />
+<img alt="web" src="https://img.shields.io/badge/Web-grey?style=flat-square&logo=webassembly" />
 
 A react native port of [Kagome](https://github.com/ikawaha/kagome) using the IPA dictionary.
 

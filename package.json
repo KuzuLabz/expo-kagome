@@ -1,6 +1,6 @@
 {
   "name": "@kuzulabz/expo-kagome",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A Japanese morphological analyzer",
   "main": "build/index.js",
   "types": "build/index.d.ts",
